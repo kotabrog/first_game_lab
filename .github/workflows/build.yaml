@@ -33,12 +33,24 @@ jobs:
       #   with:
       #     service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
       #     api-key: ${{ secrets.MY_RENDER_API_KEY }}
-      - name: Wait for Render Deployment
-        uses: bounceapp/render-action@0.6.0
-        with:
-          render-token: ${{ secrets.MY_RENDER_API_KEY }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
-          retries: 20
-          wait: 16000
-          sleep: 30000
+      # - name: Wait for Render Deployment
+      #   uses: bounceapp/render-action@0.6.0
+      #   with:
+      #     render-token: ${{ secrets.MY_RENDER_API_KEY }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+      #     retries: 20
+      #     wait: 16000
+      #     sleep: 30000
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/deploy-pages@v1
+        id: deployment
