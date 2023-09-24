@@ -13,3 +13,18 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
           components: clippy
+      - uses: actions-rs/install@v1
+        with:
+          crate: wasm-pack
+          version: 0.11.0
+          use-tool-chain: true
+      - name: Annotate commit with clippy warnings
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.1'
+      - run: npm install
+      - run: npm test
+      - run: npm run build
