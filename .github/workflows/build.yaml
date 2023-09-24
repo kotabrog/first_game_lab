@@ -42,6 +42,11 @@ jobs:
       #     retries: 20
       #     wait: 16000
       #     sleep: 30000
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: website-artifacts
+          path: ./dist
   deploy:
     needs: build
     runs-on: ubuntu-latest 
@@ -52,5 +57,11 @@ jobs:
       pages: write
       id-token: write
     steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: website-artifacts
+          path: ./dist
       - uses: actions/deploy-pages@v1
-        id: deployment
+        with:
+          path: ./dist
