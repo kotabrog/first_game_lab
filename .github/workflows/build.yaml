@@ -18,35 +18,13 @@ jobs:
           crate: wasm-pack
           version: 0.11.0
           use-tool-cache: true
-      # - name: Annotate commit with clippy warnings
-      #   uses: actions-rs/clippy-check@v1
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v3
         with:
           node-version: '16.13.0'
       - run: npm install
       - run: npm test
       - run: npm run build
-      # - name: Deploy to production
-      #   uses: johnbeynon/render-deploy-action@v0.0.8
-      #   with:
-      #     service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
-      #     api-key: ${{ secrets.MY_RENDER_API_KEY }}
-      # - name: Wait for Render Deployment
-      #   uses: bounceapp/render-action@0.6.0
-      #   with:
-      #     render-token: ${{ secrets.MY_RENDER_API_KEY }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
-      #     retries: 20
-      #     wait: 16000
-      #     sleep: 30000
       - name: Upload build artifacts
-        # uses: actions/upload-artifact@v2
-        # with:
-        #   name: github-pages
-        #   path: ./dist
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./dist
@@ -60,11 +38,6 @@ jobs:
       pages: write
       id-token: write
     steps:
-      # - name: Download build artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: github-pages
-      #     path: ./dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
