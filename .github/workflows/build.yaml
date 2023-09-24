@@ -43,9 +43,12 @@ jobs:
       #     wait: 16000
       #     sleep: 30000
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        # uses: actions/upload-artifact@v2
+        # with:
+        #   name: github-pages
+        #   path: ./dist
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages
           path: ./dist
   deploy:
     needs: build
