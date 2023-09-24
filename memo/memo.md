@@ -3,7 +3,7 @@
 ## 開発流れ
 
 ```
-nvm use 18.17.1
+nvm use 16.13.0
 
 npm init rust-webpack
 
@@ -15,5 +15,3 @@ npm start
 rust-toolchain.tomlの作成
 
 .github/workflows/build.yamlの作成
-
-sourcetreeでのpushだとうまくいかない
