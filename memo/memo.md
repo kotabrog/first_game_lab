@@ -13,3 +13,5 @@ npm start
 ```
 
 rust-toolchain.tomlの作成
+
+.github/workflows/build.yamlの作成
